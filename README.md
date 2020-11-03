@@ -60,6 +60,13 @@
 | card           | integer    | null: false |
 | security_month | integer    | null: false |
 | security_year  | integer    | null: false |
+
+### Association
+
+
+## address テーブル
+
+| Column         | Type       | Options     |
 | postal         | integer    | null: false |
 | prefectures    | integer    | null: false |
 | municipality   | string     | null: false |
