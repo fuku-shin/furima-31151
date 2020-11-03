@@ -17,6 +17,8 @@
 
 - has_many :items
 - has_many :comments
+- has_many :sales
+
 
 ## items テーブル
 
@@ -34,6 +36,7 @@
 
 ### Association
 - belongs_to :user
+- has_many :sales
 - has_many :comments
 
 
@@ -59,7 +62,9 @@
 | item           | references | foreign_true |
 
 ### Association
-has_one :address
+- has_one :address
+- belongs_to item
+- belongs_to user
 
 
 ## address テーブル
@@ -76,4 +81,4 @@ has_one :address
 | item           | references | foreign_true |
 
 ### Association
-belongs_to :sale
+- belongs_to :sale
