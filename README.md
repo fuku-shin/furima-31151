@@ -22,17 +22,17 @@
 
 ## items テーブル
 
-| Column         | Type       | Options     |
-| -------------- | ---------- | ----------- |
-| name           | string     | null: false |
-| explanation    | text       | null: false |
-| price          | integer    | null: false |
-| payment_id     | integer    | null: false |
-| status_id      | integer    | null: false |
-| area_id        | integer    | null: false |
-| days_id        | integer    | null: false |
-| category_id    | integer    | null: false |
-| user           | references | foreign_true            |
+| Column         | Type       | Options          |
+| -------------- | ---------- | ---------------- |
+| name           | string     | null: false      |
+| explanation    | text       | null: false      |
+| price          | integer    | null: false      |
+| payment_id     | integer    | null: false      |
+| status_id      | integer    | null: false      |
+| area_id        | integer    | null: false      |
+| days_id        | integer    | null: false      |
+| category_id    | integer    | null: false      |
+| user           | references | foreign_key:true |
 
 ### Association
 - belongs_to :user
@@ -42,11 +42,11 @@
 
 ## comments テーブル
 
-| Column   | Type       | Options      |
-| -------- | ---------- | ------------ |
-| comment  | string     | null: false  | 
-| item     | references | foreign_true |
-| user     | references | foreign_true |
+| Column   | Type       | Options          |
+| -------- | ---------- | ---------------- |
+| comment  | string     | null: false      | 
+| item     | references | foreign_key:true |
+| user     | references | foreign_key:true |
 
 
 ### Association
@@ -56,10 +56,10 @@
 
 ## sales テーブル
 
-| Column         | Type       | Options      |
-| -------------- | ---------- | ------------ |
-| user           | references | foreign_true | 
-| item           | references | foreign_true |
+| Column         | Type       | Options          |
+| -------------- | ---------- | ---------------- |
+| user           | references | foreign_key:true | 
+| item           | references | foreign_key:true |
 
 ### Association
 - has_one :address
@@ -69,15 +69,15 @@
 
 ## address テーブル
 
-| Column         | Type       | Options      |
-| -------------- | ---------- | ------------ |
-| postal         | string     | null: false  |
-| prefecture_id  | integer    | null: false  |
-| municipality   | string     | null: false  |
-| address        | string     | null: false  |
-| building       | string     |              |
-| phone_number   | string     | null: false  |
-| sale           | references | foreign_true |
+| Column         | Type       | Options          |
+| -------------- | ---------- | ---------------- |
+| postal         | string     | null: false      |
+| prefecture_id  | integer    | null: false      |
+| municipality   | string     | null: false      |
+| address        | string     | null: false      |
+| building       | string     |                  |
+| phone_number   | string     | null: false      |
+| sale           | references | foreign_key:true |
 
 ### Association
 - belongs_to :sale
