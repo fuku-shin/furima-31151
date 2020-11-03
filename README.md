@@ -45,7 +45,7 @@
 | Column   | Type       | Options      |
 | -------- | ---------- | ------------ |
 | comment  | string     | null: false  | 
-| items    | references | foreign_true |
+| item     | references | foreign_true |
 | user     | references | foreign_true |
 
 
@@ -71,14 +71,13 @@
 
 | Column         | Type       | Options      |
 | -------------- | ---------- | ------------ |
-| postal         | integer    | null: false  |
-| prefectures    | integer    | null: false  |
+| postal         | string     | null: false  |
+| prefecture_id  | integer    | null: false  |
 | municipality   | string     | null: false  |
 | address        | string     | null: false  |
 | building       | string     |              |
 | phone_number   | string     | null: false  |
-| user           | references | foreign_true |
-| item           | references | foreign_true |
+| sale           | references | foreign_true |
 
 ### Association
 - belongs_to :sale
