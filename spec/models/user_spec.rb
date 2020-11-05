@@ -25,12 +25,28 @@ RSpec.describe User, type: :model do
         @user.password_confirmation = 'a123456'
         expect(@user).to be_valid
       end
+      it 'first_nameは全角での入力が必須' do
+        @user.first_name = '阿いウ'
+        expect(@user).to be_valid
+      end
+      it 'last_nameは全角での入力が必須' do
+        @user.first_name = '阿いウ'
+        expect(@user).to be_valid
+      end
       it 'read_first_nameが必須' do
         @user.read_first_name = 'a'
         expect(@user).to be_valid
       end
       it 'read_last_nameが必須' do
         @user.read_last_name = 'a'
+        expect(@user).to be_valid
+      end
+      it 'read_first_nameは全角カタカナでの入力が必須' do
+        @user.read_first_name = 'ウ'
+        expect(@user).to be_valid
+      end
+      it 'read_last_nameは全角での入力が必須' do
+        @user.read_last_name = 'ウ'
         expect(@user).to be_valid
       end
     end
@@ -44,6 +60,10 @@ RSpec.describe User, type: :model do
         @user.email = nil
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
+      end
+      it 'emailに＠がないと登録できない' do
+        @user.email = 'aaaa'
+        @user.valid?
       end
       it '重複したemailだと登録できない' do
         @user.save
@@ -75,8 +95,24 @@ RSpec.describe User, type: :model do
         @user.read_first_name = nil
         @user.valid?
       end
+      it 'first_nameが全角でなければ登録できない' do
+        @user.first_name = 'aｱ'
+        @user.valid?
+      end
+      it 'last_nameが全角でなければ登録できない' do
+        @user.last_name = 'aｱ'
+        @user.valid?
+      end
       it 'read_last_nameがからだと登録できない' do
         @user.read_last_name = nil
+        @user.valid?
+      end
+      it 'read_first_nameが全角カナでなければ登録できない' do
+        @user.read_first_name = 'aｱ漢あ'
+        @user.valid?
+      end
+      it 'read_last_nameが全角カナでなければ登録できない' do
+        @user.read_last_name = 'aｱ漢あ'
         @user.valid?
       end
       it 'birthdayがからだと登録できない' do
