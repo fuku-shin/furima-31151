@@ -34,11 +34,11 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
       end
       it 'read_first_nameが必須' do
-        @user.read_first_name = 'a'
+        @user.read_first_name = 'ア'
         expect(@user).to be_valid
       end
       it 'read_last_nameが必須' do
-        @user.read_last_name = 'a'
+        @user.read_last_name = 'ア'
         expect(@user).to be_valid
       end
       it 'read_first_nameは全角カタカナでの入力が必須' do
@@ -62,8 +62,9 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
       it 'emailに＠がないと登録できない' do
-        @user.email = 'aaaa'
+        @user.email = 'aaaa'.match(/@+/)
         @user.valid?
+        expect(@user.errors.full_messages).to include("Email can't be blank")
       end
       it '重複したemailだと登録できない' do
         @user.save
@@ -86,38 +87,47 @@ RSpec.describe User, type: :model do
       it 'first_nameがからだと登録できない' do
         @user.first_name = nil
         @user.valid?
+        expect(@user.errors.full_messages).to include("First name can't be blank")
       end
       it 'last_nameがからだと登録できない' do
         @user.last_name = nil
         @user.valid?
+        expect(@user.errors.full_messages).to include("Last name can't be blank")
       end
       it 'read_first_nameがからだと登録できない' do
         @user.read_first_name = nil
         @user.valid?
-      end
-      it 'first_nameが全角でなければ登録できない' do
-        @user.first_name = 'aｱ'
-        @user.valid?
-      end
-      it 'last_nameが全角でなければ登録できない' do
-        @user.last_name = 'aｱ'
-        @user.valid?
+        expect(@user.errors.full_messages).to include("Read first name can't be blank")
       end
       it 'read_last_nameがからだと登録できない' do
         @user.read_last_name = nil
         @user.valid?
+        expect(@user.errors.full_messages).to include("Read last name can't be blank")
+      end
+      it 'first_nameが全角でなければ登録できない' do
+        @user.first_name = 'aｱ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid")
+      end
+      it 'last_nameが全角でなければ登録できない' do
+        @user.last_name = 'aｱ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name is invalid")
       end
       it 'read_first_nameが全角カナでなければ登録できない' do
-        @user.read_first_name = 'aｱ漢あ'
+        @user.read_first_name = 'aAｱ漢あ'
         @user.valid?
+        expect(@user.errors.full_messages).to include("Read first name is invalid")
       end
       it 'read_last_nameが全角カナでなければ登録できない' do
-        @user.read_last_name = 'aｱ漢あ'
+        @user.read_last_name = 'aAｱ漢あ'
         @user.valid?
+        expect(@user.errors.full_messages).to include("Read last name is invalid")
       end
       it 'birthdayがからだと登録できない' do
         @user.birthday = nil
         @user.valid?
+        expect(@user.errors.full_messages).to include("Birthday can't be blank")
       end
     end
   end
