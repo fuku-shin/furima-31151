@@ -11,34 +11,13 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
       end
       it 'passwordは6文字以上での入力が必須' do
-        @user.password = '000000'
-        @user.password_confirmation = '000000'
+        @user.password = 'a2a2a2'
+        @user.password_confirmation = 'a2a2a2'
         expect(@user).to be_valid
       end
       it 'passwordは半角英数混合の入力が必須' do
         @user.password = 'a2a2a2'
         @user.password_confirmation = 'a2a2a2'
-        expect(@user).to be_valid
-      end
-      it 'passwordは確認用と一致していることが必須' do
-        @user.password = 'a123456'
-        @user.password_confirmation = 'a123456'
-        expect(@user).to be_valid
-      end
-      it 'first_nameは全角での入力が必須' do
-        @user.first_name = '阿いウ'
-        expect(@user).to be_valid
-      end
-      it 'last_nameは全角での入力が必須' do
-        @user.first_name = '阿いウ'
-        expect(@user).to be_valid
-      end
-      it 'read_first_nameが必須' do
-        @user.read_first_name = 'ア'
-        expect(@user).to be_valid
-      end
-      it 'read_last_nameが必須' do
-        @user.read_last_name = 'ア'
         expect(@user).to be_valid
       end
       it 'read_first_nameは全角カタカナでの入力が必須' do
