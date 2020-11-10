@@ -20,6 +20,6 @@ class User < ApplicationRecord
     validates :read_first_name
     validates :read_last_name
   end
-  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/}
+  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/ }
   validates :email, format: { with: /@+/ }
- end
+end
