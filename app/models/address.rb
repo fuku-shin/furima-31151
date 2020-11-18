@@ -1,5 +1,6 @@
 class Address < ApplicationRecord
   belongs_to :sale
-  belongs_to :item
-  belongs_to :user
+
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :area
 end
