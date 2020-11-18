@@ -1,8 +1,14 @@
 class SalesController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
+
   def index
     @item = Item.find(params[:item_id])
+    if current_user.id != @item.user.id
+      redirect_to root_path
+    end
     @sale_address = SaleAddress.new
   end
+
 
   def new
     @sale_address = SaleAddress.new
