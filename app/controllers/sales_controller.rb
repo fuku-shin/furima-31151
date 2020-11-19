@@ -25,6 +25,18 @@ class SalesController < ApplicationController
     else
       render :index
     end
+
+    def pay_item
+      @item = Item.find(params[:item_id])
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      Payjp::Charge.create(
+        amount: @item.price,
+        card: sale_params[:token],
+        currency:'jpy'
+      )
+
+   end
+
   end
 
 
@@ -34,4 +46,5 @@ class SalesController < ApplicationController
   params.require(:sale_address).permit(:postal, :area_id, :municipality, :address, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
+  sk_test_36efe4a56c7416270b58483a
 end
