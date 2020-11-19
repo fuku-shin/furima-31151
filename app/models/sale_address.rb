@@ -8,8 +8,9 @@ class SaleAddress
     validates :area_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :municipality
     validates :address
-    validates :phone_number, format: {with: /\A[0-9]{11}\z/, message: "can't be blank"}
   end
+    validates :phone_number, format: {with: /\A[0-9]{11}\z/, message: "can't be blank"}
+
 
     def save
       sale = Sale.create(user_id:user_id, item_id:item_id)
