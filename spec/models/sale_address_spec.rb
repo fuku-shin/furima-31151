@@ -6,11 +6,16 @@ RSpec.describe SaleAddress, type: :model do
       @sale_address = FactoryBot.build(:sale_address)
     end
     context '商品が購入できるとき'
-    it 'postal,area_id,municipality,address,phone_numberが入力されていれば購入できる' do
+    it 'token,postal,area_id,municipality,address,phone_numberが入力されていれば購入できる' do
     expect(@sale_address).to be_valid
     end
 
     context '商品が購入できないとき'
+    it 'tokenがからだと購入できない' do
+      @sale_address.token = nil
+      @sale_address.valid?
+      expect(@sale_address.errors.full_messages).to include("Token can't be blank")
+    end
     it 'postalがからだと購入できない' do
       @sale_address.postal = nil
       @sale_address.valid?
@@ -26,10 +31,10 @@ RSpec.describe SaleAddress, type: :model do
       @sale_address.valid?
       expect(@sale_address.errors.full_messages).to include("Postal is invalid. Include hyphen(-)")
     end
-    it 'area_idが0だと購入できない' do
-      @sale_address.area_id = '0'
+    it 'area_idが1だと購入できない' do
+      @sale_address.area_id = 1
       @sale_address.valid?
-      expect(@sale_address.errors.full_messages).to include()
+      expect(@sale_address.errors.full_messages).to include("Area can't be blank")
     end
     it 'manicipalityがからだと購入できない' do
       @sale_address.municipality = nil

@@ -4,7 +4,8 @@ class Sale < ApplicationRecord
   belongs_to :user
 
   attr_accessor :token
-
+  validates :token, presence: true
+  
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :area
 
