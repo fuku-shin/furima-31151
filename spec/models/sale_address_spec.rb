@@ -7,9 +7,12 @@ RSpec.describe SaleAddress, type: :model do
     end
     context '商品が購入できるとき'
     it 'token,postal,area_id,municipality,address,phone_numberが入力されていれば購入できる' do
-    expect(@sale_address).to be_valid
+      expect(@sale_address).to be_valid
     end
-
+    it 'buildingが空でも購入できる' do
+      @sale_address.building = nil
+      expect(@sale_address).to be_valid
+    end
     context '商品が購入できないとき'
     it 'tokenがからだと購入できない' do
       @sale_address.token = nil
@@ -24,12 +27,12 @@ RSpec.describe SaleAddress, type: :model do
     it 'postalに-がないと購入できない' do
       @sale_address.postal = '1234567'
       @sale_address.valid?
-      expect(@sale_address.errors.full_messages).to include("Postal is invalid. Include hyphen(-)")
+      expect(@sale_address.errors.full_messages).to include('Postal is invalid. Include hyphen(-)')
     end
     it 'postalが全角だと購入できない' do
       @sale_address.postal = '１２３-4567'
       @sale_address.valid?
-      expect(@sale_address.errors.full_messages).to include("Postal is invalid. Include hyphen(-)")
+      expect(@sale_address.errors.full_messages).to include('Postal is invalid. Include hyphen(-)')
     end
     it 'area_idが1だと購入できない' do
       @sale_address.area_id = 1
@@ -52,13 +55,9 @@ RSpec.describe SaleAddress, type: :model do
       expect(@sale_address.errors.full_messages).to include("Phone number can't be blank")
     end
     it 'phone_numberが11けたより多いと購入できない' do
-      @sale_address.phone_number = "111111111111"
+      @sale_address.phone_number = '111111111111'
       @sale_address.valid?
       expect(@sale_address.errors.full_messages).to include("Phone number can't be blank")
     end
-
   end
-
 end
-
-
