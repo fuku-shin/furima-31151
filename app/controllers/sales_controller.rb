@@ -13,7 +13,7 @@ class SalesController < ApplicationController
     @item = Item.find(params[:item_id])
     @sale_address = SaleAddress.new(sale_params)
     if @sale_address.valid?
-      Payjp.api_key = "sk_test_36efe4a56c7416270b58483a" 
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
         amount: @item.price,  
         card: sale_params[:token],   
@@ -25,19 +25,6 @@ class SalesController < ApplicationController
       render :index
     end
   end
-
-
-    def pay_item
-      @item = Item.find(params[:item_id])
-      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-      Payjp::Charge.create(
-        amount: @item.price,
-        card: sale_params[:token],
-        currency:'jpy'
-      )
-    end
-
-
 
   private
 
