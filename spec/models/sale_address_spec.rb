@@ -59,5 +59,10 @@ RSpec.describe SaleAddress, type: :model do
       @sale_address.valid?
       expect(@sale_address.errors.full_messages).to include("Phone number can't be blank")
     end
+    it 'phone_numberが数字のみでなければ購入できない' do
+      @sale_address.phone_number = '1111111111一'
+      @sale_address.valid?
+      expect(@sale_address.errors.full_messages).to include("Phone number can't be blank")
+    end
   end
 end
