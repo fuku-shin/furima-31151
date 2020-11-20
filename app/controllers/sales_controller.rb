@@ -1,6 +1,6 @@
 class SalesController < ApplicationController
   before_action :authenticate_user!, only: [:index]
-  before_action :item_params, only: [:index, :cleate]
+  before_action :item_params, only: [:index, :create]
 
   def index
     redirect_to root_path if current_user.id == @item.user.id || !@item.sale.nil?
